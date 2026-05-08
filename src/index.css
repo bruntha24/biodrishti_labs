@@ -1,0 +1,116 @@
+/* Entry CSS — imports Google fonts + modular style sheets, then Tailwind layers. */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+@import "./styles/animations.css";
+@import "./styles/scrollbar.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* BioDrishti dark scientific palette */
+    --background: 210 51% 11%;          /* #0D1B2A */
+    --background-deep: 210 55% 7%;
+    --foreground: 210 30% 92%;
+
+    --card: 210 45% 13%;
+    --card-foreground: 210 30% 92%;
+
+    --popover: 210 45% 13%;
+    --popover-foreground: 210 30% 92%;
+
+    --primary: 171 85% 26%;             /* #0A7C6A teal */
+    --primary-foreground: 210 30% 96%;
+    --primary-glow: 171 84% 34%;        /* #0e9e88 */
+
+    --secondary: 210 40% 18%;
+    --secondary-foreground: 210 30% 92%;
+
+    --muted: 210 35% 16%;
+    --muted-foreground: 210 18% 65%;
+
+    --accent: 43 54% 54%;               /* #C9A84C gold */
+    --accent-foreground: 210 51% 11%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 210 30% 96%;
+
+    --border: 210 35% 20%;
+    --input: 210 35% 18%;
+    --ring: 171 84% 34%;
+
+    --radius: 0.75rem;
+
+    --gradient-hero: radial-gradient(ellipse at 70% 30%, hsl(171 70% 18% / 0.35), transparent 60%),
+                     radial-gradient(ellipse at 20% 80%, hsl(210 55% 14% / 0.6), transparent 55%);
+    --gradient-fade-bottom: linear-gradient(to bottom, transparent, hsl(var(--background)) 90%);
+    --shadow-glow: 0 0 60px -10px hsl(var(--primary-glow) / 0.45);
+    --shadow-soft: 0 20px 60px -30px hsl(210 80% 2% / 0.8);
+
+    --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1, h2, h3, h4 {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  ::selection { background: hsl(var(--primary-glow) / 0.4); }
+}
+
+@layer utilities {
+  .font-serif-display { font-family: 'DM Serif Display', serif; }
+  .text-balance { text-wrap: balance; }
+
+  .glow-teal {
+    box-shadow: 0 0 0 1px hsl(var(--primary-glow) / 0.3),
+                0 10px 40px -10px hsl(var(--primary-glow) / 0.4);
+  }
+
+  .hairline {
+    background: linear-gradient(to right, transparent, hsl(var(--border)), transparent);
+  }
+
+  .gold-text { color: hsl(var(--accent)); }
+
+  /* Premium glass panel */
+  .glass-panel {
+    background: linear-gradient(135deg, hsl(var(--card) / 0.5), hsl(var(--card) / 0.25));
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid hsl(var(--primary-glow) / 0.18);
+    box-shadow:
+      inset 0 1px 0 hsl(var(--primary-glow) / 0.08),
+      0 30px 80px -40px hsl(210 80% 2% / 0.9);
+  }
+
+  /* Subtle grain noise overlay */
+  .noise-overlay {
+    background-image: radial-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px);
+    background-size: 3px 3px;
+    mix-blend-mode: overlay;
+  }
+
+  /* Reflective sweep on CTA */
+  .cta-sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, hsl(var(--primary-glow) / 0.35) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.9s cubic-bezier(0.22,1,0.36,1);
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  .cta-sheen:hover::after { transform: translateX(120%); }
+}
