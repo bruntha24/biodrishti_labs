@@ -244,49 +244,147 @@ export const InstitutionsSection = () => {
               </motion.div>
 
               {/* OFFERINGS */}
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewport}
-                transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
-                className="mt-16 md:pl-8"
-              >
-                <div className="mb-6 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                  <span className="gold-text font-mono">◆</span>
-                  <span>What BioDrishti Offers</span>
-                  <span className="h-px flex-1 bg-border" />
-                </div>
+<motion.div
+  initial={{ opacity: 0, y: 24 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={viewport}
+  transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
+  className="mt-12 md:mt-16 md:pl-8"
+>
+  {/* SECTION LABEL */}
+  <div className="mb-6 flex items-center gap-3 text-[9px] sm:text-[10px] uppercase tracking-[0.24em] sm:tracking-[0.3em] text-muted-foreground">
+    <span className="gold-text font-mono shrink-0">◆</span>
 
-                <motion.div
-                  variants={stagger}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={viewport}
-                  className="grid gap-4 sm:grid-cols-2"
-                >
-                  {OFFERINGS.map((o, i) => (
-                    <motion.div
-                      key={o.title}
-                      custom={i}
-                      variants={fadeUp}
-                      whileHover={{ y: -3 }}
-                      transition={{ duration: 0.4, ease: EASE }}
-                      className="surface-card group relative overflow-hidden p-6"
-                    >
-                      <div
-                        aria-hidden
-                        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary-glow/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                      />
-                      <h4 className="font-serif text-[17px] leading-snug text-foreground">
-                        {o.title}
-                      </h4>
-                      <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">
-                        {o.text}
-                      </p>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </motion.div>
+    {/* FIXED TEXT WRAP */}
+    <span className="whitespace-nowrap">
+      What BioDrishti Offers
+    </span>
+
+    <span className="h-px flex-1 bg-border" />
+  </div>
+
+  {/* RESPONSIVE GRID */}
+  <motion.div
+    variants={stagger}
+    initial="hidden"
+    whileInView="show"
+    viewport={viewport}
+    className="grid grid-cols-1 gap-4 sm:grid-cols-2"
+  >
+    {OFFERINGS.map((o, i) => (
+      <motion.div
+        key={o.title}
+        custom={i}
+        variants={fadeUp}
+        whileHover={{
+          y: -4,
+          scale: 1.01,
+        }}
+        transition={{
+          duration: 0.4,
+          ease: EASE,
+        }}
+
+        /* MOBILE FIXED CARD */
+        className="
+          surface-card
+          group
+          relative
+          overflow-hidden
+          rounded-2xl
+          border
+          border-border/60
+          p-5
+          sm:p-6
+          backdrop-blur-xl
+        "
+      >
+        {/* TOP GLOW */}
+        <div
+          aria-hidden
+          className="
+            absolute
+            inset-x-0
+            top-0
+            h-px
+            bg-gradient-to-r
+            from-transparent
+            via-primary-glow/60
+            to-transparent
+            opacity-0
+            transition-opacity
+            duration-500
+            group-hover:opacity-100
+          "
+        />
+
+        {/* MOBILE LIGHT EFFECT */}
+        <div
+          aria-hidden
+          className="
+            absolute
+            -right-10
+            -top-10
+            h-24
+            w-24
+            rounded-full
+            bg-primary/5
+            blur-2xl
+          "
+        />
+
+        {/* TITLE */}
+        <h4
+          className="
+            relative
+            z-10
+            font-serif
+            text-[16px]
+            sm:text-[17px]
+            leading-snug
+            text-foreground
+            break-words
+          "
+        >
+          {o.title}
+        </h4>
+
+        {/* TEXT */}
+        <p
+          className="
+            relative
+            z-10
+            mt-3
+            text-[13.5px]
+            sm:text-[14px]
+            leading-[1.75]
+            text-muted-foreground
+            break-words
+          "
+        >
+          {o.text}
+        </p>
+
+        {/* BOTTOM ACCENT */}
+        <div
+          className="
+            absolute
+            bottom-0
+            left-0
+            h-[2px]
+            w-0
+            bg-gradient-to-r
+            from-primary-glow
+            to-accent
+            transition-all
+            duration-500
+            group-hover:w-full
+          "
+        />
+      </motion.div>
+    ))}
+  </motion.div>
+</motion.div>
             </div>
 
             {/* =========== RIGHT =========== */}
@@ -372,10 +470,23 @@ export const InstitutionsSection = () => {
                   href="#contact"
                   className="cta-sheen relative overflow-hidden rounded-md"
                 >
-                  <Button variant="hero" size="lg" className="w-full justify-between">
-                    Discuss Partnership
-                    <ArrowUpRight className="ml-1 h-4 w-4" />
-                  </Button>
+                  <Button
+  variant="hero"
+  size="lg"
+  className="
+    w-full
+    sm:w-full
+    md:w-full
+    justify-center
+    md:justify-between
+    gap-2
+    text-center
+  "
+>
+  Discuss Partnership
+
+  <ArrowUpRight className="h-4 w-4 shrink-0" />
+</Button>
                 </a>
                 <p className="text-center text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
                   Limited cohort · 2026 intake
@@ -387,4 +498,4 @@ export const InstitutionsSection = () => {
       </div>
     </section>
   );
-};
+};     

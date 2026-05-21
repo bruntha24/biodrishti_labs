@@ -1,4 +1,3 @@
-import { SectionHeading } from "@/components/sections/SectionHeading";
 import { ServiceCard } from "@/components/cards/ServiceCard";
 import { services } from "@/data/services";
 import { motion } from "framer-motion";

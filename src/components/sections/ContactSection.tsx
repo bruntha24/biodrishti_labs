@@ -4,7 +4,8 @@ import { z } from "zod";
 import { ArrowUpRight, FileCheck2, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { SectionHeading } from "@/components/sections/SectionHeading";
+import DOMPurify from "dompurify"; // ✅ ADDED
+
 import { EASE } from "@/utils/motion";
 
 const WEB3FORMS_ACCESS_KEY = "5056f6fe-c8df-41da-a2ba-1404ef7db393";
@@ -96,13 +97,18 @@ export const ContactSection = () => {
     setErrors({});
     setLoading(true);
 
+    // ✅ SANITIZATION ADDED HERE
+    const cleanName = DOMPurify.sanitize(parsed.data.name);
+    const cleanEmail = DOMPurify.sanitize(parsed.data.email);
+    const cleanMessage = DOMPurify.sanitize(parsed.data.message);
+
     try {
       const payload = {
         access_key: WEB3FORMS_ACCESS_KEY,
-        subject: `New BioDrishti enquiry from ${parsed.data.name}`,
-        from_name: parsed.data.name,
-        email: parsed.data.email,
-        message: parsed.data.message,
+        subject: `New BioDrishti enquiry from ${cleanName}`,
+        from_name: cleanName,
+        email: cleanEmail,
+        message: cleanMessage,
       };
 
       const res = await fetch("https://api.web3forms.com/submit", {
@@ -137,8 +143,6 @@ export const ContactSection = () => {
       <div className="container grid gap-16 lg:grid-cols-12">
         {/* LEFT SIDE */}
         <div className="lg:col-span-5">
-          
-
           <h2 className="font-serif text-4xl leading-tight md:text-5xl">
             Begin a <span className="italic text-primary-glow">conversation</span>.
           </h2>
@@ -201,28 +205,9 @@ export const ContactSection = () => {
               </motion.div>
             ) : (
               <div className="space-y-6">
-                <Field
-                  label="Name"
-                  id="name"
-                  placeholder="Your full name"
-                  error={errors.name}
-                />
-
-                <Field
-                  label="Email"
-                  id="email"
-                  type="email"
-                  placeholder="Your email address"
-                  error={errors.email}
-                />
-
-                <Field
-                  label="Message"
-                  id="message"
-                  textarea
-                  placeholder="Tell us about your research, your questions, your institution, or what brought you here."
-                  error={errors.message}
-                />
+                <Field label="Name" id="name" placeholder="Your full name" error={errors.name} />
+                <Field label="Email" id="email" type="email" placeholder="Your email address" error={errors.email} />
+                <Field label="Message" id="message" textarea placeholder="Tell us more..." error={errors.message} />
 
                 <Button
                   type="submit"
@@ -243,18 +228,6 @@ export const ContactSection = () => {
                     </>
                   )}
                 </Button>
-
-                {/* Direct contact + notes */}
-                <div className="mt-8 space-y-4 text-sm text-muted-foreground">
-                  <p>
-                    You can also reach us directly at:{" "}
-                    <span className="text-foreground font-medium">
-                      biodrishti@gmail.com
-                    </span>
-                  </p>
-
-                  
-                </div>
               </div>
             )}
           </motion.form>

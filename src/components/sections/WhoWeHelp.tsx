@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SectionHeading } from "@/components/sections/SectionHeading";
 import { audiences } from "@/data/audiences";
 
 const particles = Array.from({ length: 24 }).map((_, i) => ({
@@ -49,11 +48,13 @@ export const WhoWeHelp = () => {
         </div>
       </div>
 
-      <div className="container relative z-20">
+      <div className="container relative z-20 overflow-x-hidden">
 
         {/* HEADER */}
-        <div className="mb-16 max-w-3xl">
-          <h2 className="mt-3 max-w-4xl font-serif text-3xl leading-[1.2] text-[#0D1B2A] md:text-4xl lg:text-5xl">
+        <div className="mb-12 max-w-3xl">
+
+          {/* 🔥 INCREASED HEADING SIZE */}
+          <h2 className="mt-3 max-w-4xl font-serif text-4xl leading-[1.2] text-[#0D1B2A] md:text-5xl lg:text-6xl">
             For students at every stage —
             <span className="italic text-[#0A7C6A]">
               {" "}especially those without strong institutional research support
@@ -71,9 +72,8 @@ export const WhoWeHelp = () => {
         {/* TIMELINE */}
         <div className="relative">
 
-          {/* CENTER SPINE */}
+          {/* SPINE (HIDDEN ON MOBILE) */}
           <div className="absolute left-1/2 top-0 bottom-0 hidden w-[2px] -translate-x-1/2 bg-[#0D1B2A]/10 md:block">
-
             <motion.div
               animate={{ y: ["-10%", "110%"] }}
               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
@@ -83,48 +83,41 @@ export const WhoWeHelp = () => {
             </motion.div>
           </div>
 
-          <div className="space-y-16">
+          <div className="space-y-10 md:space-y-16">
 
             {audiences.map((a, i) => (
               <motion.div
                 key={a.n}
-                initial={{ opacity: 0, y: 70 }}
+                initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-120px" }}
                 transition={{
-                  duration: 0.9,
+                  duration: 0.8,
                   delay: i * 0.1,
-                  ease: [0.22, 1, 0.36, 1],
                 }}
-                className="relative grid items-center gap-6 md:grid-cols-3"
+                className="grid grid-cols-1 md:grid-cols-3 items-center gap-6"
               >
 
                 {/* LEFT BOX */}
-                <div className="flex justify-end pr-8">
-                  <div className="relative">
+                <div className="flex md:justify-end">
+                  <div className="relative w-full md:w-auto">
 
-                    <div className="absolute right-[-32px] top-1/2 h-[2px] w-12 bg-gradient-to-r from-[#C9A84C] via-[#0A7C6A] to-transparent opacity-70" />
+                    <div className="hidden md:block absolute right-[-32px] top-1/2 h-[2px] w-12 bg-gradient-to-r from-[#C9A84C] via-[#0A7C6A] to-transparent opacity-70" />
 
-                    <div className="min-w-[230px] rounded-2xl border border-[#0D1B2A]/10 bg-white/80 px-7 py-6 backdrop-blur-md shadow-sm">
-
-                      {/* ❌ REMOVED "Stage" TEXT */}
-                      <h3 className="mt-1 text-[17px] font-medium text-[#0D1B2A] leading-snug">
+                    <div className="w-full md:min-w-[230px] rounded-2xl border border-[#0D1B2A]/10 bg-white/80 px-5 py-5 md:px-7 md:py-6 backdrop-blur-md shadow-sm">
+                      <h3 className="text-[16px] md:text-[17px] font-medium text-[#0D1B2A] leading-snug">
                         {a.title}
                       </h3>
-
                     </div>
+
                   </div>
                 </div>
 
                 {/* CENTER NODE */}
-                <div className="hidden justify-center md:flex relative">
-
+                <div className="hidden md:flex justify-center relative">
                   <motion.div
                     className="absolute h-14 w-14 rounded-full border border-[#C9A84C]/30"
-                    animate={{
-                      rotate: 360,
-                      scale: [1, 1.15, 1],
-                    }}
+                    animate={{ rotate: 360, scale: [1, 1.15, 1] }}
                     transition={{
                       rotate: { duration: 8, repeat: Infinity, ease: "linear" },
                       scale: { duration: 2.5, repeat: Infinity },
@@ -133,10 +126,7 @@ export const WhoWeHelp = () => {
 
                   <motion.div
                     className="absolute h-10 w-10 rounded-full border border-[#0A7C6A]/30"
-                    animate={{
-                      scale: [0.8, 1.4, 0.8],
-                      opacity: [0.2, 0.6, 0.2],
-                    }}
+                    animate={{ scale: [0.8, 1.4, 0.8], opacity: [0.2, 0.6, 0.2] }}
                     transition={{ duration: 2.6, repeat: Infinity }}
                   />
 
@@ -155,18 +145,17 @@ export const WhoWeHelp = () => {
                 </div>
 
                 {/* RIGHT BOX */}
-                <div className="flex justify-start pl-8">
-                  <div className="relative">
+                <div className="flex md:justify-start">
+                  <div className="relative w-full md:w-auto">
 
-                    <div className="absolute left-[-32px] top-1/2 h-[2px] w-12 bg-gradient-to-l from-[#C9A84C] via-[#0A7C6A] to-transparent opacity-70" />
+                    <div className="hidden md:block absolute left-[-32px] top-1/2 h-[2px] w-12 bg-gradient-to-l from-[#C9A84C] via-[#0A7C6A] to-transparent opacity-70" />
 
-                    <div className="min-w-[320px] rounded-2xl border border-[#0D1B2A]/10 bg-white/80 px-7 py-6 backdrop-blur-md shadow-sm">
-
-                      <p className="text-[15px] leading-[1.9] text-slate-600">
+                    <div className="w-full md:min-w-[320px] rounded-2xl border border-[#0D1B2A]/10 bg-white/80 px-5 py-5 md:px-7 md:py-6 backdrop-blur-md shadow-sm">
+                      <p className="text-[14px] md:text-[15px] leading-[1.8] text-slate-600">
                         {a.desc}
                       </p>
-
                     </div>
+
                   </div>
                 </div>
 

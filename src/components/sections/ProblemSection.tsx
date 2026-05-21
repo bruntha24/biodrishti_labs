@@ -7,7 +7,6 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { useRef } from "react";
-import { SectionHeading } from "@/components/sections/SectionHeading";
 import { EASE } from "@/utils/motion";
 
 const PARAGRAPHS = [

@@ -10,7 +10,6 @@ import { domains, teamSection } from "@/data/domains";
 
 import { EASE } from "@/utils/motion";
 
-import teamBg from "@/assets/images/team-bg.jpg";
 
 const floatingParticles = Array.from({ length: 14 }).map((_, i) => ({
   id: i,
@@ -81,20 +80,15 @@ const StatCard = ({
 };
 
 export const TeamSection = () => (
-  <section className="relative overflow-hidden bg-[#F8FBFA] py-28 lg:py-40">
+<section
+  id="team"
+  className="relative overflow-hidden bg-[#F8FBFA] py-28 lg:py-40"
+>
 
     {/* PREMIUM BACKGROUND */}
     <div className="absolute inset-0 -z-30">
 
-      {/* IMAGE */}
-      <div
-        className="absolute inset-0 scale-105 opacity-[0.045]"
-        style={{
-          backgroundImage: `url(${teamBg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
+      
 
       {/* BASE */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#FCFDFC] via-[#F8FBFA] to-[#F3F8F7]" />
@@ -340,29 +334,38 @@ export const TeamSection = () => (
           </div>
 
           {/* TAGS */}
-          <div className="relative z-10 mt-10 grid grid-cols-2 gap-4">
+<div className="relative z-10 mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+  {domains.map((d, i) => (
+    <motion.div
+      key={d}
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{
+        delay: i * 0.03,
+        duration: 0.4,
+      }}
+      whileHover={{ scale: 1.04 }}
+      className="w-full"
+    >
+      {/* 🔥 FIX WRAPPER TO PREVENT OVERLAP */}
+      <div className="relative flex items-start gap-4 rounded-2xl border border-[#0A7C6A]/10 bg-white/80 px-5 py-4 backdrop-blur-md shadow-sm">
 
-            {domains.map((d, i) => (
-              <motion.div
-                key={d}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{
-                  delay: i * 0.03,
-                  duration: 0.4,
-                }}
-                whileHover={{
-                  scale: 1.04,
-                }}
-              >
-                <DomainTag
-                  name={d}
-                  index={i}
-                />
-              </motion.div>
-            ))}
+        {/* NUMBER (SAFE FIXED LAYOUT) */}
+        <div className="shrink-0 text-xs font-semibold tracking-widest text-[#C9A84C]">
+          {String(i + 1).padStart(2, "0")}
+        </div>
 
+        {/* TEXT */}
+        <div className="min-w-0">
+          <div className="text-[15px] font-medium text-[#0D1B2A] leading-snug break-words">
+            {d}
           </div>
+        </div>
+
+      </div>
+    </motion.div>
+  ))}
+</div>
 
           {/* STATS */}
           <div className="relative z-10 mt-14 grid gap-5 sm:grid-cols-3">
